@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login — MyBlog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body class="text-white auth-page no-chrome">  <!-- Skip login if already authenticated -->
+  <script>
+    if (localStorage.getItem('myblog_logged_in') === '1') {
+      window.location.href = 'index.html';
+    }
+  </script>
+
+  <!-- Animated background -->
+  <ul class="circles" aria-hidden="true">
+    <li></li><li></li><li></li><li></li>
+    <li></li><li></li><li></li><li></li>
+  </ul>
+
+  <!-- Nav -->
+  <nav class="glass-nav sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <a href="index.html" class="text-xl font-bold">MyBlog</a>
+        <a href="signup.html" class="btn-outline">Create account</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Login box -->
+  <main class="min-h-[70vh] flex items-center justify-center px-4">
+    <div class="glass-box w-full max-w-md p-8">
+      <h1 class="text-3xl font-bold text-center mb-6">Welcome Back</h1>
+      <p class="text-center text-white/90 mb-8">Sign in to continue to MyBlog</p>
+
+      <form id="login-form" class="space-y-4" autocomplete="on">
+        <input
+          type="email"
+          id="login-email"
+          class="input-field"
+          placeholder="Email address"
+          inputmode="email"
+          autocomplete="email"
+          required
+        />
+        <input
+          type="password"
+          id="login-password"
+          class="input-field"
+          placeholder="Password (6+ chars)"
+          autocomplete="current-password"
+          required
+        />
+        <button id="login-submit" type="submit" class="btn-primary w-full">Sign In</button>
+      </form>
+
+      <p id="login-msg" class="text-center mt-4 hidden"></p>
+
+      <p class="text-center mt-6 text-white/85 text-sm">
+        Don’t have an account? <a href="signup.html" class="underline">Create one</a>
+      </p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="login-footer py-10">
+    <p class="text-center opacity-80">&copy; 2025 MyBlog</p>
+  </footer>
+
+  <!-- Inline login logic (simple prototype only) -->
+  <script>
+    const form = document.getElementById('login-form');
+    const msg  = document.getElementById('login-msg');
+    const submitBtn = document.getElementById('login-submit');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Prevent double submit
+      submitBtn.disabled = true;
+
+      const email = document.getElementById('login-email').value.trim();
+      const pass  = document.getElementById('login-password').value.trim();
+
+      const validEmail = /^[^ ]+@[^ ]+\.[a-z]{2,}$/i.test(email);
+      const validPass  = pass.length >= 6;
+
+      msg.classList.remove('hidden');
+      if (!validEmail || !validPass) {
+        msg.textContent = 'Enter a valid email and 6+ char password.';
+        msg.className = 'text-center mt-4 text-red-300';
+        submitBtn.disabled = false;
+        return;
+      }
+
+      // Demo-only auth: set a local flag
+      localStorage.setItem('myblog_logged_in', '1');
+      localStorage.setItem('current_user_email', email);
+
+      msg.textContent = 'Success! Redirecting...';
+      msg.className = 'text-center mt-4 text-green-300';
+
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 600);
+    });
+  </script>
+</body>
+</html>

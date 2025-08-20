@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MyBlog — Thoughts & Stories</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body class="text-white">
+  <!-- Gate: require login -->
+  <script>
+    if (localStorage.getItem('myblog_logged_in') !== '1') {
+      window.location.href = 'login.html';
+    }
+  </script>
+
+  <!-- Animated background -->
+  <ul class="circles" aria-hidden="true">
+    <li></li><li></li><li></li><li></li>
+    <li></li><li></li><li></li><li></li>
+  </ul>
+
+  <!-- Navbar -->
+  <nav class="glass-nav sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <a href="index.html" class="text-xl font-bold">MyBlog</a>
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#home" class="nav-link">Home</a>
+          <a href="#featured-posts" class="nav-link">Blog</a>
+          <a href="#newsletter" class="nav-link">Newsletter</a>
+          <a href="#" id="open-new-blog" class="nav-link">Write</a>
+          <a href="#" id="logout-link" class="nav-link">Logout</a>
+        </div>
+        <button id="menu-btn" class="md:hidden text-2xl" aria-label="Toggle menu">☰</button>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden glass-box py-2 px-4 shadow-md">
+      <a href="#home" class="block py-2 nav-link">Home</a>
+      <a href="#featured-posts" class="block py-2 nav-link">Blog</a>
+      <a href="#newsletter" class="block py-2 nav-link">Newsletter</a>
+      <a href="#" id="open-new-blog-mobile" class="block py-2 nav-link">Write</a>
+      <a href="#" id="logout-link-mobile" class="block py-2 nav-link">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header id="home" class="min-h-[60vh] flex items-center justify-center px-4">
+    <div class="glass-hero max-w-3xl w-full text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Welcome to MyBlog</h1>
+      <p class="text-lg md:text-xl mb-8 opacity-90">Write, share, and grow your ideas.</p>
+      <a href="#featured-posts" class="btn-primary">Read Latest Posts</a>
+    </div>
+  </header>
+
+  <!-- Featured Posts -->
+  <section id="featured-posts" class="py-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between mb-10">
+        <h2 class="text-3xl font-bold">Featured Posts</h2>
+        <div class="flex items-center gap-3">
+          <button id="export-posts" class="btn-outline hidden sm:inline-block">Export</button>
+          <label class="btn-outline cursor-pointer hidden sm:inline-block">
+            Import
+            <input id="import-file" type="file" accept="application/json" class="hidden"/>
+          </label>
+        </div>
+      </div>
+      <div id="post-grid" class="grid md:grid-cols-3 gap-8"></div>
+      <div class="text-center mt-12">
+        <a href="#" class="btn-outline">View All Posts</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section id="newsletter" class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="glass-box mx-auto max-w-2xl p-8">
+        <h2 class="text-3xl font-bold mb-6">Stay Updated</h2>
+        <p class="mb-8 opacity-90">Subscribe to receive the latest posts directly in your inbox.</p>
+        <form id="newsletter-form" class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+          <input type="email" placeholder="Your email address" required class="input-field"/>
+          <button type="submit" class="btn-primary">Subscribe</button>
+        </form>
+        <p id="newsletter-msg" class="mt-4 font-medium hidden">Thanks for subscribing 🎉</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer py-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="md:col-span-2">
+          <h3 class="text-xl font-bold mb-4">MyBlog</h3>
+          <p class="opacity-90">Sharing stories, lessons, and personal insights.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="#home" class="footer-link">Home</a></li>
+            <li><a href="#featured-posts" class="footer-link">Blog</a></li>
+            <li><a href="#newsletter" class="footer-link">Newsletter</a></li>
+            <li><a href="#" id="footer-write" class="footer-link">Write</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/20 mt-12 pt-8 text-center opacity-85">
+        <p>&copy; 2025 MyBlog. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Buttons -->
+  <button id="back-to-top" class="fab fab--left btn-circle opacity-0 pointer-events-none" aria-label="Back to top">↑</button>
+  <button id="new-blog-btn" class="fab fab--right btn-circle plus" aria-label="Write new blog">+</button>
+
+  <!-- Write Blog Modal -->
+  <div id="blog-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div class="glass-box w-full max-w-lg p-6 relative">
+      <button id="close-modal" class="absolute top-4 right-4 text-white/85 hover:text-white" aria-label="Close">&times;</button>
+      <h2 class="text-2xl font-bold mb-4">Write New Blog</h2>
+      <form id="blog-form" class="space-y-4">
+        <input type="text" id="blog-title" placeholder="Blog Title" class="input-field" required />
+        <input type="url" id="blog-image" placeholder="Image URL (optional)" class="input-field" />
+        <textarea id="blog-content" placeholder="Your content..." class="input-field h-32" required></textarea>
+        <input type="text" id="blog-tags" placeholder="Tags (comma separated, optional)" class="input-field" />
+        <button type="submit" class="btn-primary w-full">Publish Blog</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- App JS -->
+  <script src="script.js"></script>
+
+  <!-- Footer soft opacity near bottom -->
+  <script>
+    const root = document.documentElement;
+    function updateFooterStrength() {
+      const scrollY = window.scrollY || window.pageYOffset;
+      const docH = document.documentElement.scrollHeight;
+      const winH = window.innerHeight;
+      const distanceFromBottom = docH - (scrollY + winH);
+      const trigger = winH * 0.2;
+      let t = 1 - Math.min(Math.max(distanceFromBottom / trigger, 0), 1);
+      t = t * t * (3 - 2 * t);
+      root.style.setProperty('--footer-strength', String(t));
+    }
+    updateFooterStrength();
+    window.addEventListener('scroll', updateFooterStrength, { passive: true });
+    window.addEventListener('resize', updateFooterStrength);
+  </script>
+</body>
+</html>

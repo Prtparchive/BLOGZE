@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --footer-strength: 0; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2b1055, #7597de, #ffb6c1);
+  background-attachment: fixed;
+  overflow-x: hidden;
+  position: relative;
+  color: #fff;
+}
+
+/* Floating circles */
+.circles { position: fixed; inset: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none; }
+.circles li { position: absolute; list-style: none; width: 20px; height: 20px; bottom: -150px; border-radius: 50%; background: rgba(255,255,255,0.18); animation: float 25s linear infinite; }
+.circles li:nth-child(1){left:25%;width:80px;height:80px;animation-duration:22s}
+.circles li:nth-child(2){left:10%;width:20px;height:20px;animation-duration:12s}
+.circles li:nth-child(3){left:70%;width:20px;height:20px;animation-duration:25s}
+.circles li:nth-child(4){left:40%;width:60px;height:60px;animation-duration:18s}
+.circles li:nth-child(5){left:65%;width:20px;height:20px;animation-duration:20s}
+.circles li:nth-child(6){left:75%;width:110px;height:110px;animation-duration:30s}
+.circles li:nth-child(7){left:35%;width:150px;height:150px;animation-duration:40s}
+.circles li:nth-child(8){left:50%;width:25px;height:25px;animation-duration:18s}
+@keyframes float { 0%{transform:translateY(0) rotate(0);opacity:1} 100%{transform:translateY(-1000px) rotate(720deg);opacity:0} }
+
+/* Glass */
+.glass-box { background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.35); border-radius: 16px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 12px 36px rgba(0,0,0,0.35); }
+.glass-hero { background: rgba(255,255,255,0.18); border: 1.5px solid rgba(255,255,255,0.35); border-radius: 16px; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: 0 14px 38px rgba(0,0,0,0.35); padding: 2.75rem 1.75rem; }
+.glass-nav { background: rgba(0,0,0,0.28); border-bottom: 1.5px solid rgba(255,255,255,0.28); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+
+/* Buttons & inputs */
+.btn-primary { display: inline-block; background: linear-gradient(135deg, #ff6ec4, #7873f5); color: #fff; font-weight: 700; padding: .8rem 1.3rem; border-radius: 10px; border: none; transition: transform .2s ease, box-shadow .2s ease; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,.25); }
+.btn-outline { display: inline-block; color: #fff; border: 1.5px solid rgba(255,255,255,.65); padding: .7rem 1.2rem; border-radius: 10px; transition: background .2s, transform .2s, border-color .2s; }
+.btn-outline:hover { background: rgba(255,255,255,.15); transform: translateY(-2px); border-color: #fff; }
+
+.input-field { width: 100%; padding: .9rem 1rem; border-radius: 12px; border: 1.5px solid rgba(255,255,255,.45); background: rgba(255,255,255,.22); color: #fff; outline: none; }
+.input-field::placeholder { color: rgba(255,255,255,.85); }
+.input-field:focus { background: rgba(255,255,255,.30); border-color: rgba(255,255,255,.70); }
+
+/* Links */
+.nav-link { color: #fff; opacity: .95; transition: opacity .2s ease; }
+.nav-link:hover { opacity: 1; }
+.footer-link { color: rgba(255,255,255,.95); transition: opacity .2s ease; }
+.footer-link:hover { opacity: 1; }
+
+/* Cards */
+.post-card { background: rgba(255,255,255,0.16); border: 1.5px solid rgba(255,255,255,0.30); border-radius: 16px; overflow: hidden; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 10px 30px rgba(0,0,0,0.30); }
+.post-card img { display: block; width: 100%; height: 12rem; object-fit: cover; }
+
+/* FABs */
+.fab { position: fixed; bottom: 1.25rem; z-index: 60; }
+.fab--right { right: 1.25rem; }
+.fab--left { right: 4.75rem; }
+.btn-circle { background: linear-gradient(135deg, #7873f5, #ff6ec4); color: #fff; border: none; width: 48px; height: 48px; border-radius: 9999px; box-shadow: 0 8px 22px rgba(0,0,0,.25); transition: transform .2s, box-shadow .2s, opacity .2s; }
+.btn-circle:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,.28); }
+.btn-circle.plus { font-size: 1.25rem; display: grid; place-items: center; }
+
+/* Footers */
+.login-footer { background: rgba(0, 0, 0, 0.22); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid rgba(255, 255, 255, 0.25); box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.28); }
+.login-footer p { color: rgba(255, 255, 255, 0.90); }
+
+.site-footer { --base-bg: 0.45; --base-blur: 14px; --base-bd: 0.35; --base-shadow: 0.35;
+  background: rgba(0, 0, 0, calc(var(--base-bg) + (0.20 * var(--footer-strength))));
+  backdrop-filter: blur(calc( var(--base-blur) + (4px * var(--footer-strength)) ));
+  -webkit-backdrop-filter: blur(calc( var(--base-blur) + (4px * var(--footer-strength)) ));
+  border-top: 2px solid rgba(255, 255, 255, calc(var(--base-bd) + (0.10 * var(--footer-strength))));
+  box-shadow: 0 -10px 36px rgba(0, 0, 0, calc(var(--base-shadow) + (0.10 * var(--footer-strength))));
+}
+
+/* Anim helper */
+@keyframes slideDown { from { transform: translateY(-10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.animate-slideDown { animation: slideDown .25s ease-out; }
+
+/* ===== No header/footer on auth pages (login & signup) ===== */
+/* Add class="auth-page no-chrome" on the <body> of login.html & signup.html */
+
+body.no-chrome .glass-nav,
+body.no-chrome .login-footer {
+  display: none !important;       /* remove any visible header/footer */
+}
+
+/* Make the page behave like a clean, centered canvas */
+body.auth-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;                  /* small breathing space on tiny screens */
+}
+
+/* Tighten the auth card */
+body.auth-page .glass-box,
+body.auth-page .glass-hero {
+  padding: 1.25rem;
+  max-width: 420px;
+  width: 100%;
+}
+
+@media (min-width: 768px){
+  body.auth-page .glass-box { padding: 1.75rem; }
+}
+
+/* Remove top/bottom gaps sometimes introduced by sections */
+body.auth-page main {
+  min-height: auto;
+  width: 100%;
+}
+
+/* Optional: soften background motion behind the small card */
+body.auth-page .circles { opacity: 0.85; }

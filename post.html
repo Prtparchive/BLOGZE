@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Post — MyBlog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body class="text-white">
+  <!-- Background -->
+  <ul class="circles" aria-hidden="true">
+    <li></li><li></li><li></li><li></li>
+    <li></li><li></li><li></li><li></li>
+  </ul>
+
+  <!-- Nav -->
+  <nav class="glass-nav sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <a href="reader.html" class="text-xl font-bold">MyBlog</a>
+        <a href="reader.html" class="btn-outline">← Back to Reader</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Post -->
+  <main class="py-10">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <article id="post-article" class="glass-box overflow-hidden">
+        <img id="post-image" src="" alt="Post cover" class="w-full h-64 object-cover">
+        <div class="p-6 md:p-8">
+          <h1 id="post-title" class="text-3xl md:text-4xl font-bold mb-2"></h1>
+          <p id="post-date" class="text-white/80 mb-6"></p>
+          <div id="post-tags" class="flex flex-wrap gap-2 mb-6"></div>
+          <div id="post-content" class="leading-7 whitespace-pre-wrap"></div>
+        </div>
+      </article>
+      <div class="text-center mt-8">
+        <a href="reader.html" class="btn-outline">Back to all posts</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="login-footer py-10">
+    <p class="text-center opacity-80">&copy; 2025 MyBlog — Keep reading!</p>
+  </footer>
+
+  <script src="post.js"></script>
+</body>
+</html>

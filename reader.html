@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Read Blogs — MyBlog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* Reader-specific footer soft opacity */
+    :root { --footer-strength: 0; }
+    .reader-footer{
+      --base-bg:0.35; --base-blur:12px; --base-bd:0.30; --base-shadow:0.30;
+      background: rgba(0,0,0, calc(var(--base-bg) + (0.20 * var(--footer-strength))));
+      backdrop-filter: blur(calc( var(--base-blur) + (4px * var(--footer-strength)) ));
+      -webkit-backdrop-filter: blur(calc( var(--base-blur) + (4px * var(--footer-strength)) ));
+      border-top: 1.6px solid rgba(255,255,255, calc(var(--base-bd) + (0.12 * var(--footer-strength))));
+      box-shadow: 0 -10px 30px rgba(0,0,0, calc(var(--base-shadow) + (0.12 * var(--footer-strength))));
+    }
+  </style>
+</head>
+<body class="text-white">
+  <!-- Background -->
+  <ul class="circles" aria-hidden="true">
+    <li></li><li></li><li></li><li></li>
+    <li></li><li></li><li></li><li></li>
+  </ul>
+
+  <!-- Nav -->
+  <nav class="glass-nav sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <a href="reader.html" class="text-xl font-bold">MyBlog</a>
+        <div class="hidden md:flex items-center gap-6">
+          <a href="index.html" class="nav-link">Writer</a>
+          <a href="reader.html" class="nav-link">Reader</a>
+        </div>
+        <button id="menu-btn" class="md:hidden text-2xl" aria-label="Toggle menu">☰</button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden glass-box py-2 px-4 shadow-md">
+      <a href="index.html" class="block py-2 nav-link">Writer</a>
+      <a href="reader.html" class="block py-2 nav-link">Reader</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="min-h-[40vh] flex items-center justify-center px-4">
+    <div class="glass-hero max-w-3xl w-full text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Discover Blogs</h1>
+      <p class="text-lg md:text-xl opacity-90">Browse, search, and read posts in a clean, focused layout.</p>
+    </div>
+  </header>
+
+  <!-- Controls -->
+  <section class="py-6">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="glass-box p-4 md:p-6">
+        <div class="grid md:grid-cols-3 gap-4 items-center">
+          <div class="md:col-span-2">
+            <input id="search-input" type="text" class="input-field" placeholder="Search by title or content..."/>
+          </div>
+          <div class="flex gap-3 justify-between md:justify-end">
+            <select id="sort-select" class="input-field w-full md:w-auto">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+            </select>
+            <select id="tag-select" class="input-field w-full md:w-auto">
+              <option value="all">All tags</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Posts Grid -->
+  <main class="py-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div id="posts-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+      <div id="empty-state" class="text-center opacity-90 mt-10 hidden">
+        <p>No posts found. Try adjusting your search or filters.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="reader-footer py-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">MyBlog</h3>
+          <p class="opacity-90">Happy reading.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Explore</h4>
+          <ul class="space-y-2">
+            <li><a href="reader.html" class="footer-link">Reader</a></li>
+            <li><a href="index.html" class="footer-link">Writer</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/20 mt-12 pt-8 text-center opacity-85">
+        <p>&copy; 2025 MyBlog. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="reader.js"></script>
+</body>
+</html>

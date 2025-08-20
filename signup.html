@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Account — MyBlog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body class="text-white auth-page no-chrome">  <script>
+    if (localStorage.getItem('myblog_logged_in') === '1') {
+      window.location.href = 'index.html';
+    }
+  </script>
+
+  <ul class="circles" aria-hidden="true">
+    <li></li><li></li><li></li><li></li>
+    <li></li><li></li><li></li><li></li>
+  </ul>
+
+  <nav class="glass-nav sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <a href="index.html" class="text-xl font-bold">MyBlog</a>
+        <a href="login.html" class="btn-outline">Log in</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="min-h-[70vh] flex items-center justify-center px-4">
+    <div class="glass-box w-full max-w-md p-8">
+      <h1 class="text-3xl font-bold text-center mb-6">Create Account</h1>
+      <p class="text-center text-white/90 mb-8">Join MyBlog to write and manage your posts.</p>
+
+      <form id="signup-form" class="space-y-4">
+        <input type="text" id="signup-name" class="input-field" placeholder="Full name" required />
+        <input type="email" id="signup-email" class="input-field" placeholder="Email address" required />
+        <input type="password" id="signup-password" class="input-field" placeholder="Password (6+ chars)" required />
+        <input type="password" id="signup-confirm" class="input-field" placeholder="Confirm password" required />
+        <button type="submit" class="btn-primary w-full">Create Account</button>
+      </form>
+
+      <p id="signup-msg" class="text-center mt-4 hidden"></p>
+
+      <p class="text-center mt-6 text-white/85 text-sm">
+        Already have an account? <a href="login.html" class="underline">Log in</a>
+      </p>
+    </div>
+  </main>
+
+  <footer class="login-footer py-10">
+    <p class="text-center opacity-80">&copy; 2025 MyBlog</p>
+  </footer>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    function loadUsers(){ try{const x=JSON.parse(localStorage.getItem('users')||'[]'); return Array.isArray(x)?x:[];}catch{return[];} }
+    function saveUsers(u){ localStorage.setItem('users', JSON.stringify(u)); }
+    function taken(users, email){ return users.some(u => (u.email||'').toLowerCase()===email.toLowerCase()); }
+
+    const form = $('signup-form'), msg = $('signup-msg');
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const name=$('signup-name').value.trim();
+      const email=$('signup-email').value.trim();
+      const pass=$('signup-password').value.trim();
+      const conf=$('signup-confirm').value.trim();
+      const validEmail=/^[^ ]+@[^ ]+\.[a-z]{2,}$/i.test(email);
+
+      msg.classList.remove('hidden','text-green-300','text-red-300');
+
+      if(!name){ msg.textContent='Enter your name.'; msg.classList.add('text-red-300'); return; }
+      if(!validEmail){ msg.textContent='Enter a valid email.'; msg.classList.add('text-red-300'); return; }
+      if(pass.length<6){ msg.textContent='Password must be 6+ chars.'; msg.classList.add('text-red-300'); return; }
+      if(pass!==conf){ msg.textContent='Passwords do not match.'; msg.classList.add('text-red-300'); return; }
+
+      const users=loadUsers();
+      if(taken(users,email)){ msg.textContent='An account with this email exists.'; msg.classList.add('text-red-300'); return; }
+
+      users.push({ id:'u_'+Date.now(), name, email, password:pass, createdAt:new Date().toISOString() });
+      saveUsers(users);
+      localStorage.setItem('myblog_logged_in','1');
+      localStorage.setItem('current_user_email', email);
+
+      msg.textContent='Account created! Redirecting...'; msg.classList.add('text-green-300');
+      setTimeout(()=>window.location.href='index.html', 700);
+    });
+  </script>
+</body>
+</html>
